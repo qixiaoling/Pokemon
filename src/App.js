@@ -16,7 +16,7 @@ function App() {
             try {
                 await axios.get(endPoint).then((res) => {
                     console.log(res.data)
-                    setPokemonList(res.data.results);
+                    setPokemonList(res.data);
                 })
             } catch (e) {
                 console.error(e);
@@ -45,7 +45,7 @@ function App() {
                 </button>
             </div>
             <div>
-                {pokemonList.result && pokemonList.map((pokemon) => {
+                {pokemonList.results && pokemonList.results.map((pokemon) => {
                     return (
                         <Pokemon key={pokemon.name} endPoint={pokemon.url}/>
                     )
