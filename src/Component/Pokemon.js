@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-
+import './Pokemon.css'
 function Pokemon({endPoint}){
     const [pokemon, setPokemon] = useState({});
 
@@ -23,7 +23,7 @@ function Pokemon({endPoint}){
     },[endPoint])
 
     return(
-        <section className="poke-card">
+        <div className="poke-card">
             {pokemon &&
             <>
                 <h2>{pokemon.name}</h2>
@@ -31,7 +31,7 @@ function Pokemon({endPoint}){
 
             </>
             }
-        </section>
+        </div>
     )
 
 

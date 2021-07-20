@@ -3,6 +3,7 @@ import './App.css';
 import axios from "axios";
 import logo from './assets/logo.png'
 import Pokemon from "./Component/Pokemon";
+import Button from "./Component/Button";
 
 
 function App() {
@@ -36,32 +37,34 @@ function App() {
 
 
     return (
-        <>
-            <img src={logo} alt='logo' width='400px'/>
-            <div>
-                <button
-                    onClick={() => setEndPoint(pokemonList.previous)}
-                    disabled={!pokemonList.previous}
-                >
-                    Prev
-                </button>
-                <button
-                    onClick={() => setEndPoint(pokemonList.next)}
-                    disabled={!pokemonList.next}
-                >
-                    Next
-                </button>
-            </div>
-            <div>
-                {pokemonList.results && pokemonList.results.map((pokemon) => {
-                    return (
-                        <Pokemon key={pokemon.name} endPoint={pokemon.url}/>
-                    )
-                })}
-            </div>
-        </>
+        <div className="poke-deck">
+            {pokemonList &&
+            <>
+                <img alt="logo" width="400px" src={logo} />
+                <section className="button-bar">
+                    <Button
+                        disabled={!pokemonList.previous}
+                        clickHandler={() => setEndPoint(pokemonList.previous)}
+                    >
+                        Vorige
+                    </Button>
+                    <Button
+                        disabled={!pokemonList.next}
+                        clickHandler={() => setEndPoint(pokemonList.next)}
+                    >
+                        Volgende
+                    </Button>
+                </section>
 
-    );
+                {pokemonList.results && pokemonList.results.map((pokemon) => {
+                    return <Pokemon key={pokemon.name} endPoint={pokemon.url} />
+                })}
+            </>
+            }
+            {loading && <p>Loading...</p>}
+            {error && <p>Er ging iets mis bij het ophalen van de data...</p>}
+        </div>
+    )
 }
 
-export default App;
+            export default App
