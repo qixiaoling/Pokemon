@@ -4,15 +4,19 @@ import axios from "axios";
 import logo from './assets/logo.png'
 import Pokemon from "./Component/Pokemon";
 
+
 function App() {
 
     const [pokemonList, setPokemonList] = useState([]);
     const [endPoint, setEndPoint] = useState('https://pokeapi.co/api/v2/pokemon');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
 
         async function getPokemonList() {
-
+            setLoading(true);
+            setError(false);
             try {
                 await axios.get(endPoint).then((res) => {
                     console.log(res.data)
@@ -20,13 +24,15 @@ function App() {
                 })
             } catch (e) {
                 console.error(e);
+                setError(true);
             }
+            setLoading(false);
 
         }
 
         getPokemonList();
 
-    }, [])
+    }, [endPoint])
 
 
     return (
@@ -35,11 +41,13 @@ function App() {
             <div>
                 <button
                     onClick={() => setEndPoint(pokemonList.previous)}
+                    disabled={!pokemonList.previous}
                 >
                     Prev
                 </button>
                 <button
                     onClick={() => setEndPoint(pokemonList.next)}
+                    disabled={!pokemonList.next}
                 >
                     Next
                 </button>
